@@ -2,8 +2,10 @@
 
   <div class="black-bg" v-if="openModal == true">
     <div class="white-bg">
-      <h4>상세페이지임</h4>
-      <p>상세페이지 내용임</p>
+      <h4>{{onerooms[clickData].title}}</h4>
+      <img :src="onerooms[clickData].image" alt="" class="room-img">
+      <p>{{onerooms[clickData].content}}</p>
+      <p>{{onerooms[clickData].price}}</p>
       <button @click="openModal = false">닫기</button>
     </div>
   </div>
@@ -14,7 +16,7 @@
 
   <div v-for="(oneroom, i) in onerooms" :key='i'>
     <img :src="onerooms[i].image" alt="" class="room-img">
-    <h4 @click="openModal = true">{{oneroom.title}}</h4>
+    <h4 @click="openModal = true; clickData = i">{{oneroom.title}}</h4>
     <p>{{oneroom.price}}원</p>
   </div>
 
@@ -43,6 +45,7 @@ export default {
   name: 'App',
   data(){
     return{
+      clickData : 0,
       onerooms : data,
       openModal : false,
       신고수 : [0,0,0],
