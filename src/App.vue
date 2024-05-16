@@ -1,32 +1,47 @@
 <template>
-
-  <div class="black-bg" v-if="openModal == true">
+  <!-- <div class="black-bg" v-if="openModal == true">
     <div class="white-bg">
       <h4>{{onerooms[clickData].title}}</h4>
       <img :src="onerooms[clickData].image" alt="" class="room-img">
       <p>{{onerooms[clickData].content}}</p>
       <p>{{onerooms[clickData].price}}</p>
+      <Discount/>
       <button @click="openModal = false">닫기</button>
     </div>
-  </div>
+  </div> -->
+  <Modal :onerooms="onerooms" :clickData="clickData" :openModal="openModal" />
 
   <div class="menu">
-    <a v-for="(menu, i) in menus" :key="i">{{menu}}</a>
+    <a v-for="(menu, i) in menus" :key="i">{{ menu }}</a>
   </div>
 
   <!-- <div class="discount">
     <h4>지금 결제하면 20% 할인</h4>
   </div> -->
 
-  <Discount/>
+  <Discount />
 
-  <div v-for="(oneroom, i) in onerooms" :key='i'>
-    <img :src="onerooms[i].image" alt="" class="room-img">
-    <h4 @click="openModal = true; clickData = i">{{oneroom.title}}</h4>
-    <p>{{oneroom.price}}원</p>
-  </div>
+  <!-- <div v-for="(oneroom, i) in onerooms" :key="i">
+    <img :src="onerooms[i].image" alt="" class="room-img" />
+    <h4
+      @click="
+        openModal = true;
+        clickData = i;
+      "
+    >
+      {{ oneroom.title }}
+    </h4>
+    <p>{{ oneroom.price }}원</p>
+  </div> -->
 
-<!-- 
+  <Card :oneroom="onerooms[i]" v-for="(oneroom, i) in onerooms" :key="i" />
+  <!-- <Card :oneroom="onerooms[1]" />
+  <Card :oneroom="onerooms[2]" />
+  <Card :oneroom="onerooms[3]" />
+  <Card :oneroom="onerooms[4]" />
+  <Card :oneroom="onerooms[5]" /> -->
+
+  <!-- 
   <div>
     <img src="./assets/room1.jpg" alt="" class="room-img">
     <h4>{{products[1]}}</h4>
@@ -44,44 +59,46 @@
 </template>
 
 <script>
-
-import data from './assets/oneroom.js';
-import Discount from './Discount.vue';
+import data from "./assets/oneroom.js";
+import Discount from "./Discount.vue";
+import Modal from "./Modal.vue";
+import Card from "./Card.vue";
 
 export default {
-  name: 'App',
-  data(){
-    return{
-      clickData : 0,
-      onerooms : data,
-      openModal : false,
-      신고수 : [0,0,0],
-      menus : ['Home', 'Shop', 'About'],
-      products : ['역삼동원룸', '천호동원룸', '마포구원룸']
-    }
+  name: "App",
+  data() {
+    return {
+      clickData: 0,
+      onerooms: data,
+      openModal: false,
+      신고수: [0, 0, 0],
+      menus: ["Home", "Shop", "About"],
+      products: ["역삼동원룸", "천호동원룸", "마포구원룸"],
+    };
   },
-  methods : {
-    increase(){
+  methods: {
+    increase() {
       this.신고수++;
-    }
+    },
   },
   components: {
-    Discount : Discount,
-  }
-}
+    Discount: Discount,
+    Modal: Modal,
+    Card: Card,
+  },
+};
 </script>
 
 <style>
-
-body{
-  margin: 0
+body {
+  margin: 0;
 }
 
-div{
-  box-sizing: border-box
+div {
+  box-sizing: border-box;
 }
 
-.black-bg{
+.black-bg {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
@@ -89,7 +106,7 @@ div{
   padding: 20px;
 }
 
-.white-bg{
+.white-bg {
   width: 100%;
   background: white;
   border-radius: 8px;
@@ -104,26 +121,26 @@ div{
   color: #2c3e50;
 }
 
-.menu{
+.menu {
   background-color: darkslateblue;
   padding: 15px;
-  border-radius: 15px
+  border-radius: 15px;
 }
 
-.menu a{
+.menu a {
   color: white;
-  padding: 10px
+  padding: 10px;
 }
 
-.room-img{
+.room-img {
   width: 100%;
-  margin-top: 40px
+  margin-top: 40px;
 }
 
-.discount{
+.discount {
   background: #eee;
   padding: 10px;
   margin: 10px;
-  border-radius: 5px
+  border-radius: 5px;
 }
 </style>
