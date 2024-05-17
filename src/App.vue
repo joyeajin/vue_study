@@ -9,12 +9,14 @@
       <button @click="openModal = false">닫기</button>
     </div>
   </div> -->
-  <Modal
-    @openModal="openModal = false"
-    :onerooms="onerooms"
-    :clickData="clickData"
-    :openModal="openModal"
-  />
+  <transition name="fade">
+    <Modal
+      @openModal="openModal = false"
+      :onerooms="onerooms"
+      :clickData="clickData"
+      :openModal="openModal"
+    />
+  </transition>
 
   <div class="menu">
     <a v-for="(menu, i) in menus" :key="i">{{ menu }}</a>
@@ -25,6 +27,12 @@
   </div> -->
 
   <Discount />
+
+  <button @click="priceSortAscending">가격낮은순정렬</button>
+  <button @click="priceSortDescending">가격높은순정렬</button>
+  <button @click="priceSortAlphabet">가나다순정렬</button>
+
+  <button @click="sortBack">되돌리기</button>
 
   <!-- <div v-for="(oneroom, i) in onerooms" :key="i">
     <img :src="onerooms[i].image" alt="" class="room-img" />
@@ -81,6 +89,7 @@ export default {
   name: "App",
   data() {
     return {
+      oneroomsOriginal: [...data],
       clickData: 0,
       onerooms: data,
       openModal: false,
@@ -93,6 +102,25 @@ export default {
     increase() {
       this.신고수++;
     },
+
+    priceSortAscending() {
+      this.onerooms.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    },
+    priceSortDescending() {
+      this.onerooms.sort(function (a, b) {
+        return b.price - a.price;
+      });
+    },
+    priceSortAlphabet() {
+      this.onerooms.sort(function (a, b) {
+        return a.title > b.title ? 1 : -1;
+      });
+    },
+    sortBack() {
+      this.onerooms = [...this.oneroomsOriginal];
+    },
   },
   components: {
     Discount: Discount,
@@ -103,6 +131,26 @@ export default {
 </script>
 
 <style>
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 1s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-leave-active {
+  transition: all 1s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
 body {
   margin: 0;
 }
