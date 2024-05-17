@@ -42,6 +42,12 @@ export default {
       this.$emit("openModal");
     },
   },
+  beforeUpdate() {
+    if (this.month == 2) {
+      alert("2개월 불가능");
+      this.month = 3;
+    }
+  },
 };
 </script>
 

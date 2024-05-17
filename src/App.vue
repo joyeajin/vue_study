@@ -89,6 +89,7 @@ export default {
   name: "App",
   data() {
     return {
+      showDiscount: true,
       oneroomsOriginal: [...data],
       clickData: 0,
       onerooms: data,
@@ -121,6 +122,17 @@ export default {
     sortBack() {
       this.onerooms = [...this.oneroomsOriginal];
     },
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.showDiscount = false;
+    // }, 2000);
+    // setInterval(() => {
+    //   this.intervalDiscount--;
+    //   if (this.intervalDiscount <= 0) {
+    //     this.intervalDiscount = 0;
+    //   }
+    // }, 1000);
   },
   components: {
     Discount: Discount,
