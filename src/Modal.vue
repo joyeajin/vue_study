@@ -6,7 +6,7 @@
       <p>{{ onerooms[clickData].content }}</p>
       <p>{{ onerooms[clickData].price }}</p>
       <Discount />
-      <!-- <button @click="openModal = false">닫기</button> -->
+      <button @click="send">닫기</button>
     </div>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
     onerooms: Array,
     clickData: Number,
     openModal: Boolean,
+  },
+  methods: {
+    send() {
+      this.$emit("openModal");
+    },
   },
 };
 </script>

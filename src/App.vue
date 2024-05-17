@@ -9,7 +9,12 @@
       <button @click="openModal = false">닫기</button>
     </div>
   </div> -->
-  <Modal :onerooms="onerooms" :clickData="clickData" :openModal="openModal" />
+  <Modal
+    @openModal="openModal = false"
+    :onerooms="onerooms"
+    :clickData="clickData"
+    :openModal="openModal"
+  />
 
   <div class="menu">
     <a v-for="(menu, i) in menus" :key="i">{{ menu }}</a>
@@ -34,7 +39,15 @@
     <p>{{ oneroom.price }}원</p>
   </div> -->
 
-  <Card :oneroom="onerooms[i]" v-for="(oneroom, i) in onerooms" :key="i" />
+  <Card
+    @openModal="
+      openModal = true;
+      clickData = $event;
+    "
+    :oneroom="onerooms[i]"
+    v-for="(oneroom, i) in onerooms"
+    :key="i"
+  />
   <!-- <Card :oneroom="onerooms[1]" />
   <Card :oneroom="onerooms[2]" />
   <Card :oneroom="onerooms[3]" />
